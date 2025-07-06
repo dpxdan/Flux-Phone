@@ -75,15 +75,6 @@ You can download the lib folder containing all related library files: https://gi
 
 You can follow the How-to video to achieve the outcome for this project:
 
-### chan_sip:
-
-[![View on YouTube](https://img.youtube.com/vi/mS28vfT8wJ8/0.jpg)](https://www.youtube.com/watch?v=mS28vfT8wJ8)
-
-### chan_pjsip (Part 2):
-
-[![View on YouTube](https://img.youtube.com/vi/azWUfSBz__s/0.jpg)](https://www.youtube.com/watch?v=azWUfSBz__s)
-
-Or follow these steps.
 
 #### Preparing the SD Card with Raspbian
 Flash the you SD card using the Raspberry Pi Imager from https://www.raspberrypi.org/downloads/.
