@@ -34,7 +34,7 @@
     "audio_video" : "Audio et Vidéo",
     "appearance" : "Apparence",
     "notifications" : "Notifications",
-    "asterisk_server_address" : "Adresse du serveur Asterisk",
+    "asterisk_server_address" : "Adresse du serveur WebRTC",
     "eg_asterisk_server_address" : "ex : ws.flux.net.br",
     "websocket_port" : "Port WebSocket",
     "eg_websocket_port" : "ex : 4443",

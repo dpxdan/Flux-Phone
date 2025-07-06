@@ -34,7 +34,7 @@
     "audio_video" : "Audio & Video",
     "appearance" : "Erscheinungsbild",
     "notifications" : "Benachrichtigungen",
-    "asterisk_server_address" : "Asterisk Server Addresse",
+    "asterisk_server_address" : "WebRTC Server Addresse",
     "eg_asterisk_server_address" : "Bsp: ws.flux.net.br",
     "websocket_port" : "WebSocket Port",
     "eg_websocket_port" : "Bsp: 443",

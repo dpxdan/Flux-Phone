@@ -34,7 +34,7 @@
     "audio_video" : "Audio & Video",
     "appearance" : "Weergave",
     "notifications" : "Notificaties",
-    "asterisk_server_address" : "Asterisk server adres",
+    "asterisk_server_address" : "WebRTC server adres",
     "eg_asterisk_server_address" : "bijv: ws.flux.net.br",
     "websocket_port" : "WebSocket Poort",
     "eg_websocket_port" : "bijv: 4443",
