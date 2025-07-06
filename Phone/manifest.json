@@ -1,24 +1,24 @@
 {
-    "name": "Browser Phone",
-    "short_name": "Browser Phone",
-    "id": "com.innovateasterisk.browserphone",
+    "name": "Flux Phone",
+    "short_name": "Flux Phone",
+    "id": "com.fluxtelecom.fluxphone",
     "start_url": "index.html",
     "display": "standalone",
     "background_color": "#fff",
     "theme_color": "#f6f6f6",
-    "description": "Browser Phone is a fully featured browser based WebRTC SIP phone for Asterisk. Designed to work with Asterisk PBX.",
+    "description": "Flux Phone is a fully featured browser based WebRTC SIP phone for FreeSWITCH. Designed to work with FreeSWITCH.",
     "screenshots": [
         {
             "src": "icons/screenshot1.webp",
             "type": "image/webp",
             "sizes": "2542x1860",
-            "label": "Innovate Asterisk"
+            "label": "Flux Telecom"
         },
         {
             "src": "icons/screenshot2.webp",
             "type": "image/webp",
             "sizes": "2542x1860",
-            "label": "Innovate Asterisk"
+            "label": "Flux Telecom"
         }
     ],
     "icons": [

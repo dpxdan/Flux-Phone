@@ -1,5 +1,5 @@
 #######################################
-# Asterisk & Browser Phone Dockerfile #
+# Asterisk & Flux Phone Dockerfile #
 #######################################
 # The easiest way to kick the tires on WebRTC.
 
@@ -29,7 +29,7 @@
 # 👩🏼‍🦰 Add a User
 # =============
 # I have pre-loaded some users in the config. You will have User1, User2 and User3 all ready for you.
-# The Browser Phone may be promoting you for account details, They will be as follows:
+# The Flux Phone may be promoting you for account details, They will be as follows:
 # Secure WebSocket Server (TLS): localhost
 # WebSocket Port: 8089
 # WebSocket Path: /ws
@@ -222,13 +222,13 @@ RUN openssl req -new -x509 -days 365 -nodes \
     -keyout /etc/asterisk/crt/private.pem \
     -subj "/C=GB/ST=England/L=London/O=Head Office/OU=devops/CN=localhost"
 
-# Prepare Browser Phone
+# Prepare Flux Phone
 RUN rm -rf /var/lib/asterisk/static-http/*
 
 WORKDIR /usr/local/src
-# Download Browser-Phone
-RUN	git clone https://github.com/InnovateAsterisk/Browser-Phone.git
-RUN cp -r /usr/local/src/Browser-Phone/Phone/* /var/lib/asterisk/static-http/
+# Download Flux-Phone
+RUN	git clone https://github.com/dpxdan/Flux-Phone.git
+RUN cp -r /usr/local/src/Flux-Phone/Phone/* /var/lib/asterisk/static-http/
 
 # Set HTTP file permissions
 RUN chmod -R 744 /var/lib/asterisk/static-http/*

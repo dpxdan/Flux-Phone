@@ -351,7 +351,7 @@ Add to the bottom of /etc/asterisk/sip.conf:
 ; == Users
 
 [User1](basic,webrtc)
-callerid="Conrad de Wet" <100>
+callerid="Daniel Paixao" <100>
 secret=1234
 
 [User2](basic,webrtc)
@@ -449,7 +449,7 @@ Open the original /etc/asterisk/pjsip.conf file and make the following changes:
 
 [User1](basic_endpoint,webrtc_endpoint)
 type=endpoint
-callerid="Conrad de Wet" <100>
+callerid="Daniel Paixao" <100>
 auth=User1
 aors=User1
 [User1](single_aor)

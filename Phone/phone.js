@@ -1,16 +1,16 @@
 /**
 * ====================
-*  ☎️ Browser Phone ☎️ 
+*  ☎️ Flux Phone ☎️ 
 * ====================
-* A fully featured browser based WebRTC SIP phone for Asterisk
+* A fully featured browser based WebRTC SIP phone for FreeSWITCH
 * -------------------------------------------------------------
-*  Copyright (c) 2020  - Conrad de Wet - All Rights Reserved.
+*  Copyright (c) 2025  - Daniel Paixao - All Rights Reserved.
 * =============================================================
 * File: phone.js
 * License: GNU Affero General Public License v3.0
-* Owner: Conrad de Wet
+* Owner: Daniel Paixao
 * Date: April 2020
-* Git: https://github.com/InnovateAsterisk/Browser-Phone
+* Git: https://github.com/dpxdan/Flux-Phone
 */
 
 // Global Settings
@@ -80,7 +80,7 @@ let wallpaperDark = getDbItem("wallpaperDark", "wallpaper.dark.webp");     // Wa
  * index.html for some sample provisioning and web_hook options.
  */
 let profileUserID = getDbItem("profileUserID", null);   // Internal reference ID. (DON'T CHANGE THIS!)
-let profileName = getDbItem("profileName", null);       // eg: Keyla James
+let profileName = getDbItem("profileName", null);       // eg: Priscilla Maeda
 let wssServer = getDbItem("wssServer", null);           // eg: raspberrypi.local
 let WebSocketPort = getDbItem("WebSocketPort", null);   // eg: 444 | 4443
 let ServerPath = getDbItem("ServerPath", null);         // eg: /ws
@@ -99,14 +99,14 @@ let VoiceMailSubscribe = (getDbItem("VoiceMailSubscribe", "1") == "1");         
 let VoicemailDid = getDbItem("VoicemailDid", "");                                      // Number to dial for VoicemialMain()
 let SubscribeVoicemailExpires = parseInt(getDbItem("SubscribeVoicemailExpires", 300)); // Voceimail Subscription expiry time (in seconds)
 let ContactUserName = getDbItem("ContactUserName", "");                                // Optional name for contact header uri
-let userAgentStr = getDbItem("UserAgentStr", "Browser Phone "+ appversion +" (SIPJS - "+ sipjsversion +") "+ navUserAgent);   // Set this to whatever you want.
+let userAgentStr = getDbItem("UserAgentStr", "Flux Phone "+ appversion +" (SIPJS - "+ sipjsversion +") "+ navUserAgent);   // Set this to whatever you want.
 let hostingPrefix = getDbItem("HostingPrefix", "");                                    // Use if hosting off root directory. eg: "/phone/" or "/static/"
 let RegisterExpires = parseInt(getDbItem("RegisterExpires", 300));                     // Registration expiry time (in seconds)
 let RegisterExtraHeaders = getDbItem("RegisterExtraHeaders", "{}");                    // Parsable Json string of headers to include in register process. eg: '{"foo":"bar"}'
 let RegisterExtraContactParams = getDbItem("RegisterExtraContactParams", "{}");        // Parsable Json string of extra parameters add to the end (after >) of contact header during register. eg: '{"foo":"bar"}'
 let RegisterContactParams = getDbItem("RegisterContactParams", "{}");                  // Parsable Json string of extra parameters added to contact URI during register. eg: '{"foo":"bar"}'
-let WssInTransport = (getDbItem("WssInTransport", "1") == "1");                        // Set the transport parameter to wss when used in SIP URIs. (Required for Asterisk as it doesn't support Path)
-let IpInContact = (getDbItem("IpInContact", "1") == "1");                              // Set a random IP address as the host value in the Contact header field and Via sent-by parameter. (Suggested for Asterisk)
+let WssInTransport = (getDbItem("WssInTransport", "1") == "1");                        // Set the transport parameter to wss when used in SIP URIs. (Required for FreeSWITCH as it doesn't support Path)
+let IpInContact = (getDbItem("IpInContact", "1") == "1");                              // Set a random IP address as the host value in the Contact header field and Via sent-by parameter. (Suggested for FreeSWITCH)
 let BundlePolicy = getDbItem("BundlePolicy", "balanced");                              // SDP Media Bundle: max-bundle | max-compat | balanced https://webrtcstandards.info/sdp-bundle/
 let IceStunServerJson = getDbItem("IceStunServerJson", "");                            // Sets the JSON string for ice Server. Default: [{ "urls": "stun:stun.l.google.com:19302" }] Must be https://developer.mozilla.org/en-US/docs/Web/API/RTCConfiguration/iceServers
 let IceStunCheckTimeout = parseInt(getDbItem("IceStunCheckTimeout", 500));             // Set amount of time in milliseconds to wait for the ICE/STUN server
@@ -1955,7 +1955,7 @@ function CreateUserAgent() {
         displayName: profileName,
         authorizationUsername: SipUsername,
         authorizationPassword: SipPassword,
-        hackIpInContact: IpInContact,           // Asterisk should also be set to rewrite contact
+        hackIpInContact: IpInContact,           // FreeSWITCH should also be set to rewrite contact
         userAgentString: userAgentStr,
         autoStart: false,
         autoStop: true,
@@ -2447,7 +2447,7 @@ function ReceiveCall(session) {
     // Detect Video
     lineObj.SipSession.data.withvideo = false;
     if(EnableVideoCalling == true && lineObj.SipSession.request.body){
-        // Asterisk 13 PJ_SIP always sends m=video if endpoint has video codec,
+        // FreeSWITCH 13 PJ_SIP always sends m=video if endpoint has video codec,
         // even if original invite does not specify video.
         if(lineObj.SipSession.request.body.indexOf("m=video") > -1) {
             lineObj.SipSession.data.withvideo = true;
@@ -2524,7 +2524,7 @@ function ReceiveCall(session) {
     var answerTimeout = 1000;
     if (!AutoAnswerEnabled  && IntercomPolicy == "enabled"){ // Check headers only if policy is allow
 
-        // https://github.com/InnovateAsterisk/Browser-Phone/issues/126
+        // https://github.com/dpxdan/Flux-Phone/issues/126
         // Alert-Info: info=alert-autoanswer
         // Alert-Info: answer-after=0
         // Call-info: answer-after=0; x=y
@@ -2575,7 +2575,7 @@ function ReceiveCall(session) {
                 // In order for this to work nicely, the recipient maut be "ready" to accept video calls
                 // In order to ensure video call compatibility (i.e. the recipient must have their web cam in, and working)
                 // The NULL video should be configured
-                // https://github.com/InnovateAsterisk/Browser-Phone/issues/26
+                // https://github.com/dpxdan/Flux-Phone/issues/26
                 if(lineObj.SipSession.data.withvideo) {
                     AnswerVideoCall(lineObj.LineNumber);
                 }
@@ -2614,7 +2614,7 @@ function ReceiveCall(session) {
                 var lineNo = lineObj.LineNumber;
                 var videoInvite = lineObj.SipSession.data.withvideo
                 window.setTimeout(function(){
-                    // https://github.com/InnovateAsterisk/Browser-Phone/issues/26
+                    // https://github.com/dpxdan/Flux-Phone/issues/26
                     if(videoInvite) {
                         AnswerVideoCall(lineNo)
                     }
@@ -2921,7 +2921,7 @@ function onInviteCancel(lineObj, response){
         // Remote Party Canceled while ringing...
 
         // Check to see if this call has been completed elsewhere
-        // https://github.com/InnovateAsterisk/Browser-Phone/issues/405
+        // https://github.com/dpxdan/Flux-Phone/issues/405
         var temp_cause = 0;
         var reason = response.headers["Reason"];
         if (reason !== undefined && reason.length > 0){
@@ -3223,7 +3223,7 @@ function onSessionReceivedMessage(lineObj, response){
             console.log("ConfbridgeStart!");
         }
         else if(msgJson.type == "ConfbridgeWelcome"){
-            console.log("Welcome to the Asterisk Conference");
+            console.log("Welcome to the FreeSWITCH Conference");
             console.log("Bridge ID:", msgJson.bridge.id);
             console.log("Bridge Name:", msgJson.bridge.name);
             console.log("Created at:", msgJson.bridge.creationtime);
@@ -3304,10 +3304,10 @@ function onSessionReceivedMessage(lineObj, response){
             RedrawStage(lineObj.LineNumber, false);
         }
         else if(msgJson.type == "ConfbridgeEnd"){
-            console.log("The Asterisk Conference has ended, bye!");
+            console.log("The FreeSWITCH Conference has ended, bye!");
         }
         else {
-            console.warn("Unknown Asterisk Conference Event:", msgJson.type, msgJson);
+            console.warn("Unknown FreeSWITCH Conference Event:", msgJson.type, msgJson);
         }
         RefreshLineActivity(lineObj.LineNumber);
         response.accept();
@@ -4738,7 +4738,7 @@ function ReceiveNotify(notification, selfSubscribe) {
     if (ContentType == "application/pidf+xml") {
         // Handle Presence
         /*
-        // Asterisk chan_sip
+        // FreeSWITCH chan_sip
         <?xml version="1.0" encoding="ISO-8859-1"?>
         <presence
             xmlns="urn:ietf:params:xml:ns:pidf" 
@@ -4764,7 +4764,7 @@ function ReceiveNotify(notification, selfSubscribe) {
             </tuple>
         </presence>
 
-        // Asterisk chan_pj-sip
+        // FreeSWITCH chan_pj-sip
         <?xml version="1.0" encoding="UTF-8"?>
         <presence 
             entity="sip:300@192.168.88.40:443;transport=ws" 
@@ -4785,7 +4785,7 @@ function ReceiveNotify(notification, selfSubscribe) {
         <?xml version="1.0"?>
         <presence 
             xmlns="urn:ietf:params:xml:ns:pidf" 
-            entity="sip:200@ws-eu-west-1.innovateasterisk.com">
+            entity="sip:200@ws-eu-west-1.flux.net.br">
             <tuple xmlns="urn:ietf:params:xml:ns:pidf" id="tuple_mixing-id">
                 <status>
                     <basic>closed</basic>
@@ -4796,7 +4796,7 @@ function ReceiveNotify(notification, selfSubscribe) {
         <?xml version="1.0"?>
         <presence 
             xmlns="urn:ietf:params:xml:ns:pidf" 
-            entity="sip:TTbXG7XMO@ws-eu-west-1.innovateasterisk.com">
+            entity="sip:TTbXG7XMO@ws-eu-west-1.flux.net.br">
             <tuple 
                 xmlns="urn:ietf:params:xml:ns:pidf" 
                 id="0x7ffe17f496c0">
@@ -4810,7 +4810,7 @@ function ReceiveNotify(notification, selfSubscribe) {
         <?xml version="1.0"?>
         <presence 
             xmlns="urn:ietf:params:xml:ns:pidf" 
-            entity="sip:TTbXG7XMO@ws-eu-west-1.innovateasterisk.com">
+            entity="sip:TTbXG7XMO@ws-eu-west-1.flux.net.br">
             <tuple 
                 xmlns="urn:ietf:params:xml:ns:pidf" 
                 id="tuple_mixing-id">
@@ -4834,7 +4834,7 @@ function ReceiveNotify(notification, selfSubscribe) {
         <?xml version="1.0"?>
         <presence 
             xmlns="urn:ietf:params:xml:ns:pidf" 
-            entity="sip:TTbXG7XMO@ws-eu-west-1.innovateasterisk.com">
+            entity="sip:TTbXG7XMO@ws-eu-west-1.flux.net.br">
             <tuple 
                 xmlns="urn:ietf:params:xml:ns:pidf" 
                 id="0x7ffce2b4b1a0">
@@ -4869,7 +4869,7 @@ closed: In the context of INSTANT MESSAGES, this value means that
         // (In some cases this can present as the user... what if using DIDs)
         var ObservedUser = xml.find("presence").attr("entity");
         buddy = ObservedUser.split("@")[0].split(":")[1];
-        // buddy = xml.find("presence").find("tuple").attr("id"); // Asterisk does this, but its not correct.
+        // buddy = xml.find("presence").find("tuple").attr("id"); // FreeSWITCH does this, but its not correct.
         // buddy = notification.request.from.uri.user; // Unreliable 
 
         var availability = "closed"
@@ -4896,7 +4896,7 @@ closed: In the context of INSTANT MESSAGES, this value means that
         var xml = $($.parseXML(notification.request.body));
 
         /*
-        Asterisk:
+        FreeSWITCH:
         <?xml version="1.0"?>
         <dialog-info 
             xmlns="urn:ietf:params:xml:ns:dialog-info" 
@@ -4914,14 +4914,14 @@ closed: In the context of INSTANT MESSAGES, this value means that
             xmlns="urn:ietf:params:xml:ns:dialog-info" 
             version="18" 
             state="full" 
-            entity="sip:TTbXG7XMO@ws-eu-west-1.innovateasterisk.com"
+            entity="sip:TTbXG7XMO@ws-eu-west-1.flux.net.br"
         />
 
         <?xml version="1.0"?>
         <dialog-info 
             xmlns="urn:ietf:params:xml:ns:dialog-info" 
             version="17" 
-            entity="sip:TTbXG7XMO@ws-eu-west-1.innovateasterisk.com" 
+            entity="sip:TTbXG7XMO@ws-eu-west-1.flux.net.br" 
             state="partial">
             <dialog 
                 id="soe2vr886cbn1ccj3h.0" 
@@ -4930,12 +4930,12 @@ closed: In the context of INSTANT MESSAGES, this value means that
                 direction="initiator">
                 <state>terminated</state>
     *           <remote>
-                    <identity display="Bob">sip:*65@ws-eu-west-1.innovateasterisk.com</identity>
-                    <target uri="sip:*65@ws-eu-west-1.innovateasterisk.com"/>
+                    <identity display="Bob">sip:*65@ws-eu-west-1.flux.net.br</identity>
+                    <target uri="sip:*65@ws-eu-west-1.flux.net.br"/>
     *           </remote>
     *           <local>
-                    <identity display="Conrad De Wet">sip:TTbXG7XMO@ws-eu-west-1.innovateasterisk.com</identity>
-                    <target uri="sip:TTbXG7XMO@ws-eu-west-1.innovateasterisk.com"/>
+                    <identity display="Conrad De Wet">sip:TTbXG7XMO@ws-eu-west-1.flux.net.br</identity>
+                    <target uri="sip:TTbXG7XMO@ws-eu-west-1.flux.net.br"/>
                 </local>
             </dialog>
         </dialog-info>
@@ -5035,7 +5035,7 @@ function SendChatMessage(buddy) {
     }
     // Note: AMI has this limit, but only if you use AMI to transmit
     // if(message.length > 755){
-    //     Alert("Asterisk has a limit on the message size (755). This message is too long, and cannot be delivered.", "Message Too Long");
+    //     Alert("FreeSWITCH has a limit on the message size (755). This message is too long, and cannot be delivered.", "Message Too Long");
     //     return;
     // }
 
@@ -10666,7 +10666,7 @@ function RefreshStream(buddyObj, filter) {
             //ItemId: "89"
             //ItemType: "MSG"
             //MessageData: "........."
-            //Src: ""Keyla James" <100>"
+            //Src: ""Priscilla Maeda" <100>"
             //SrcUserId: "8D68B3EFEC8D0F5"
 
             var deliveryStatus = "<i class=\"fa fa-question-circle-o SendingMessage\"></i>"
@@ -10913,7 +10913,7 @@ function RedrawStage(lineNum, videoChanged){
         var srcVideoHeight = (videoTrackSettings.height)? videoTrackSettings.height : video.videoHeight;
 
         if(thisRemoteVideoStream.mid) {
-            thisRemoteVideoStream.channel = "unknown"; // Asterisk Channel
+            thisRemoteVideoStream.channel = "unknown"; // FreeSWITCH Channel
             thisRemoteVideoStream.CallerIdName = "";
             thisRemoteVideoStream.CallerIdNumber = "";
             thisRemoteVideoStream.isAdminMuted = false;
@@ -11205,7 +11205,7 @@ function ShowMessageMenu(obj, typeStr, cdrId, buddy) {
                     // Recordings: [{…}]
                     // RingTime: 2.374
                     // SessionId: "67sv8o86msa7df23"
-                    // Src: "<100> Conrad de Wet"
+                    // Src: "<100> Daniel Paixao"
                     // SrcUserId: "17186D5983F"
                     // Tags: [{…}]
                     // Terminate: "us"
@@ -14637,8 +14637,8 @@ function XmppGetBuddies(){
 
                 // console.log("Register Buddy", buddyItem);
 
-                // <item xmlns="jabber:iq:roster" jid="58347g3721h~800@xmpp-eu-west-1.innovateasterisk.com" name="Alfredo Dixon" subscription="both"/>
-                // <item xmlns="jabber:iq:roster" jid="58347g3721h~123456@conference.xmpp-eu-west-1.innovateasterisk.com" name="Some Group Name" subscription="both"/>
+                // <item xmlns="jabber:iq:roster" jid="58347g3721h~800@xmpp-eu-west-1.flux.net.br" name="Alfredo Dixon" subscription="both"/>
+                // <item xmlns="jabber:iq:roster" jid="58347g3721h~123456@conference.xmpp-eu-west-1.flux.net.br" name="Some Group Name" subscription="both"/>
 
                 var jid = buddyItem.getAttribute("jid");
                 var displayName = buddyItem.getAttribute("name");
@@ -14690,9 +14690,9 @@ function XmppGetBuddies(){
 function onBuddySetRequest(iq){
     console.log('onBuddySetRequest', iq);
 
-    // <iq xmlns="jabber:client" type="result" id="4e9dadc7-145b-4ea2-ae82-3220130231ba" to="yas43lag8l@xmpp-eu-west-1.innovateasterisk.com/4gte25lhkh">
+    // <iq xmlns="jabber:client" type="result" id="4e9dadc7-145b-4ea2-ae82-3220130231ba" to="yas43lag8l@xmpp-eu-west-1.flux.net.br/4gte25lhkh">
     //     <query xmlns="jabber:iq:roster" ver="1386244571">
-    //          <item jid="800@xmpp-eu-west-1.innovateasterisk.com" name="Alfredo Dixon" subscription="both"/>
+    //          <item jid="800@xmpp-eu-west-1.flux.net.br" name="Alfredo Dixon" subscription="both"/>
     //     </query>
     // </iq>
 
@@ -15200,7 +15200,7 @@ function onPingRequest(iq){
 }
 function onVersionRequest(iq){
     // Handle Request for our version etc
-    // <iq xmlns="jabber:client" type="get" id="419-24" to=".../..." from="innovateasterisk.com">
+    // <iq xmlns="jabber:client" type="get" id="419-24" to=".../..." from="flux.net.br">
     //     <query xmlns="jabber:iq:version"/>
     // </iq>
     var id = iq.getAttribute("id");
@@ -15209,7 +15209,7 @@ function onVersionRequest(iq){
 
     var iq_response = $iq({'type':'result', 'id':id, 'to':from, 'from':to});
     iq_response.c('query', {'xmlns':'jabber:iq:version'});
-    iq_response.c('name', null, 'Browser Phone');
+    iq_response.c('name', null, 'Flux Phone');
     iq_response.c('version', null, '0.0.1');
     iq_response.c('os', null, 'Browser');
     XMPP.send(iq_response);
