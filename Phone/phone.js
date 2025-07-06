@@ -9,7 +9,7 @@
 * File: phone.js
 * License: GNU Affero General Public License v3.0
 * Owner: Daniel Paixao
-* Date: April 2020
+* Date: July 2025
 * Git: https://github.com/dpxdan/Flux-Phone
 */
 
@@ -24,7 +24,7 @@ const localDB = window.localStorage;
 // Set the following to null to disable
 let welcomeScreen = "<div class=\"UiWindowField\"><pre style=\"font-size: 12px\">";
 welcomeScreen += "===========================================================================\n";
-welcomeScreen += "Copyright © 2020 - All Rights Reserved\n";
+welcomeScreen += "Copyright © 2025 - All Rights Reserved\n";
 welcomeScreen += "===========================================================================\n";
 welcomeScreen += "\n";
 welcomeScreen += "                            NO WARRANTY\n";
