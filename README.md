@@ -160,12 +160,12 @@ $ openssl req -x509 -new -nodes -key /home/pi/ca/FluxPhone-Root-CA.key -sha256 -
 ```
 Something like this should be fine:
 ```
-Country Name (2 letter code) [AU]: GB
+Country Name (2 letter code) [AU]: BR
 State or Province Name (full name) [Some-State]: None
 Locality Name (eg, city) []: None
-Organization Name (eg, company) [Internet Widgits Pty Ltd]: Innovate FreeSWITCH
+Organization Name (eg, company) [Internet Widgits Pty Ltd]: Flux Telecom
 Organizational Unit Name (eg, section) []: flux.net.br
-Common Name (e.g. server FQDN or YOUR name) []: Innovate FreeSWITCH Root CA
+Common Name (e.g. server FQDN or YOUR name) []: Flux Telecom Root CA
 Email Address []: youremailgoes@here
 ```
 Generate Certificate Signing Request & Private Key:
