@@ -11806,8 +11806,8 @@ function ShowMyProfile(){
         html += "<div class=UiTextHeading onclick=\"ToggleHeading(this,'Configure_Extension_Html')\"><i class=\"fa fa-user-circle-o UiTextHeadingIcon\" style=\"background-color:#a93a3a\"></i> "+ lang.account +"</div>"
     }
     var AccountHtml =  "<div id=Configure_Extension_Html style=\"display:none\">";
-    AccountHtml += "<div class=UiText>"+ lang.asterisk_server_address +":</div>";
-    AccountHtml += "<div><input id=Configure_Account_wssServer class=UiInputText type=text placeholder='"+ lang.eg_asterisk_server_address +"' value='"+ getDbItem("wssServer", "") +"'></div>";
+    AccountHtml += "<div class=UiText>"+ lang.webrtc_server_address +":</div>";
+    AccountHtml += "<div><input id=Configure_Account_wssServer class=UiInputText type=text placeholder='"+ lang.eg_webrtc_server_address +"' value='"+ getDbItem("wssServer", "") +"'></div>";
 
     AccountHtml += "<div class=UiText>"+ lang.websocket_port +":</div>";
     AccountHtml += "<div><input id=Configure_Account_WebSocketPort class=UiInputText type=text placeholder='"+ lang.eg_websocket_port +"' value='"+ getDbItem("WebSocketPort", "") +"'></div>";
